@@ -63,6 +63,65 @@ class Chips:
 
     def lose_bet(self):
         self.total -= self.bet 
+
+def take_bet(chips):
+
+    while True:
+        
+        try:
+            chips.bet = int(input("How many chips would you like to bet? "))
+        except:
+            print("Sorry that is not an integer!")
+        else:
+            if chips.bet > chips.total:
+                print(f"You do not have that many chips, you have {chips.total} chips left.")
+            else:
+                break
+
+def hit(deck, hand):
+
+    hand.add_card(deck.deal())
+    hand.adjust_for_ace()
+
+def hit_or_stand(deck, hand):
+
+    global playing  
+
+    while True:
+
+        x = input("Enter h for hit or enter s for stand: ")
+
+        if x[0].lower() == 'h':
+            hit(deck, hand)
+        elif x[0].lower() == 's':
+            print("Dealer's turn!")
+            playing = False
+        else:
+            print("Sorry I do not understand that input, please enter h or s only.")
+            continue
+
+        break
+
+def show_some(player, dealer):
+
+    print("\n Dealer's Hand: ")
+    print("The first card is hidden.")
+    print(dealer.cards[1])
+
+    print("\n Player's Hand: ")
+    print("Player's hand: ", *player.cards, sep='\n')
+
+def show_all(player, dealer):
+
+    print("\n Dealer's Hand: ")
+    print("Dealer's hand: ", *dealer.cards, sep='\n')
+    print(f"The value of dealer's hand: {dealer.value}")
+
+    print("\n Player's Hand: ")
+    print("Player's hand: ", *player.cards, sep='\n')
+    print(f"The value of player's hand: {player.value}")
+
+
         
 
     def deal(self):
